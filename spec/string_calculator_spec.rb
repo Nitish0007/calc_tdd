@@ -36,6 +36,14 @@ describe StringCalculator do
       expect { StringCalculator.add("-1,2,-3") }.to raise_error(StandardError, "Negative numbers not allowed: -1, -3")
     end
 
+    it 'return sum of numbers less than or equal to 1000' do
+      expect(StringCalculator.add("1,2,1001")).to eq(3)
+    end
+
+    it 'return sum of numbers less than or equal to 1000 with custom delimiter' do
+      expect(StringCalculator.add("//;\n1;2;3;4;5000")).to eq(10)
+    end
+
   end
 
 end
