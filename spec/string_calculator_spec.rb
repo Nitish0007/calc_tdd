@@ -16,6 +16,14 @@ describe StringCalculator do
       expect(subject.add("1,2,,3")).to eq(6)
     end
 
+    it 'return the sum of numbers separated by newlines' do
+      expect(subject.add("1\n2\n3")).to eq(6)
+    end
+
+    it 'return the sum of numbers separated by both newlines and commas' do
+      expect(subject.add("1,2\n3")).to eq(6)
+    end
+
   end
 
 end

@@ -1,7 +1,10 @@
 class StringCalculator
 
+  attr_accessor :delimiters
+
   def initialize
     @delimiters = [',']
+    @delimiters << "\n"
   end
 
   def add(input)
