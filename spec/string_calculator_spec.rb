@@ -24,6 +24,14 @@ describe StringCalculator do
       expect(StringCalculator.add("1,2\n3")).to eq(6)
     end
 
+    it 'returns the sum of numbers separated by acustom delimiter' do
+      expect(StringCalculator.add("//;\n1;2;3;4;5")).to eq(15)
+    end
+
+    it 'return the sum of numbers separated by custom or default delimiters' do
+      expect(StringCalculator.add("//;\n1;2,3;4\n5")).to eq(15)
+    end
+
   end
 
 end
