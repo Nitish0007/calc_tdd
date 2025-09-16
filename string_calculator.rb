@@ -1,5 +1,6 @@
 class StringCalculator
   DELIMITERS = [',', "\n"].freeze
+  MULTIPLE_DELIMITER_PATTERN_REGEX = /\[(.*?)\]/
 
   def self.add(input)
     return 0 if input.empty?
@@ -34,10 +35,21 @@ class StringCalculator
 
   def self.delimiters(delimiter_part)
     arr = DELIMITERS.dup
-    arr << delimiter_part unless delimiter_part.empty?
+    return arr if delimiter_part.empty?
+    extracted_delimiters = extract_delimiters(delimiter_part)
+    arr.concat(extracted_delimiters)
     arr
   end
 
+  def self.extract_delimiters(delimiter_part)
+    if delimiter_part.match(MULTIPLE_DELIMITER_PATTERN_REGEX)
+      return delimiter_part.scan(MULTIPLE_DELIMITER_PATTERN_REGEX).flatten
+    else
+      [delimiter_part]
+    end
+  end
+
 end
+
 
 

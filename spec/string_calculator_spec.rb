@@ -44,6 +44,30 @@ describe StringCalculator do
       expect(StringCalculator.add("//;\n1;2;3;4;5000")).to eq(10)
     end
 
+    it 'return sum of numbers with multiple custom delimiters' do
+      expect(StringCalculator.add("//[*][%]\n1*2%3")).to eq(6)
+    end
+
+    it 'return sum of numbers with multiple custom delimiters' do
+      expect(StringCalculator.add("//[||][;]\n1||2;3")).to eq(6)
+    end
+
+    it "return sum of numbers with multiple custom mutli-character delimiters with right pattern" do
+      expect(StringCalculator.add("//[***][%%%]\n1***2%%%3")).to eq(6)
+    end
+
+    it "return sum of numbers with multiple custom mutli-character delimiters with negative numbers" do
+      expect { StringCalculator.add("//[***][%%%]\n1***-2%%%-3") }.to raise_error(StandardError, "Negative numbers not allowed: -2, -3")
+    end
+
+    it "return sum of numbers with multiple custom mutli-character delimiters and default delimiters" do
+      expect(StringCalculator.add("//[***][%%%]\n1***2%%%3\n4,5")).to eq(15)
+    end
+
+    it 'return sum of only first number when multi-character custom delimiters present with wrong pattern' do
+      expect(StringCalculator.add("//***\n1*2%3")).to eq(1)
+    end
+
   end
 
 end
