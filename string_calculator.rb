@@ -1,16 +1,10 @@
 class StringCalculator
+  DELIMITERS = [',', "\n"]
 
-  attr_accessor :delimiters
-
-  def initialize
-    @delimiters = [',']
-    @delimiters << "\n"
-  end
-
-  def add(input)
+  def self.add(input)
     return 0 if input.empty?
 
-    @delimiters.each do |delimiter|
+    DELIMITERS.each do |delimiter|
       input = input.gsub(delimiter, ',')
     end
 
