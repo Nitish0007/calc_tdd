@@ -1,16 +1,21 @@
 class StringCalculator
-  DELIMITERS = [',', "\n"]
+  DELIMITERS = [',', "\n"].freeze
 
   def self.add(input)
     return 0 if input.empty?
 
-    delimiter_part, input_part = separate_delimiter_and_input(input)
-    delimiters(delimiter_part).each do |delimiter|
+    delimiter_part, input_part = StringCalculator.separate_delimiter_and_input(input)
+    StringCalculator.delimiters(delimiter_part).each do |delimiter|
       input_part = input_part.gsub(delimiter, ',')
     end
 
-    output = input_part.split(',').map(&:to_i).sum
-    output
+    output = input_part.split(',').map(&:to_i)
+    negative_numbers = output.select(&:negative?)
+    if negative_numbers.any?
+      raise StandardError, "Negative numbers not allowed: #{negative_numbers.join(', ')}"
+    end
+
+    output.sum
   end
 
   private
@@ -26,7 +31,11 @@ class StringCalculator
   end
 
   def self.delimiters(delimiter_part)
-    DELIMITERS << delimiter_part
+    arr = DELIMITERS.dup
+    arr << delimiter_part unless delimiter_part.empty?
+    arr
   end
 
 end
+
+

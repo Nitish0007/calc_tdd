@@ -24,12 +24,16 @@ describe StringCalculator do
       expect(StringCalculator.add("1,2\n3")).to eq(6)
     end
 
-    it 'returns the sum of numbers separated by acustom delimiter' do
+    it 'returns the sum of numbers separated by custom delimiter' do
       expect(StringCalculator.add("//;\n1;2;3;4;5")).to eq(15)
     end
 
     it 'return the sum of numbers separated by custom or default delimiters' do
       expect(StringCalculator.add("//;\n1;2,3;4\n5")).to eq(15)
+    end
+
+    it 'raise exception when the input contains negative numbers' do
+      expect { StringCalculator.add("-1,2,-3") }.to raise_error(StandardError, "Negative numbers not allowed: -1, -3")
     end
 
   end
